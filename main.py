@@ -19,7 +19,7 @@ def fromText():
         body = request.get_json()
         text = getParameter(body, 'text')
 
-        return jsonify({'message': 'a summary of text', 'data': text })
+        return jsonify({'message': 'a summary of text', 'data': { 'summary': text } })
 
     except ValueError as error:
         return jsonify({ 'message': str(error) }), 422
@@ -32,7 +32,7 @@ def fromLink():
         body = request.get_json()
         url = getParameter(body, 'url')
 
-        return jsonify({'message': 'a summary of a link', 'data': url })
+        return jsonify({'message': 'a summary of a link', 'data': { 'summary': url } })
 
     except ValueError as error:
         return jsonify({ 'message': str(error) }), 422
