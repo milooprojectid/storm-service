@@ -1,10 +1,10 @@
 import numpy as np
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
-import nltk
+from nltk.tokenize import sent_tokenize
 import re
 import os
 
-stopwords = open('stopwords.txt','r')
+stopwords = open('modules/stopwords.txt','r')
 
 class summarization(object):
     
@@ -118,8 +118,7 @@ class summarization(object):
         :param paragraph: text documents
         :return: list of sentences
         """
-
-        return nltk.sent_tokenize(paragraph)
+        return sent_tokenize(paragraph)
 
 
     def word_freq(self,data):

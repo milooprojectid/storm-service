@@ -1,8 +1,8 @@
 from dotenv import load_dotenv
 from flask import Flask, jsonify, make_response, request
 from os import getenv, path
-from Summarization import summarization
-from NewsLink import getNews
+from modules.summarization import summarization
+from modules.news_link import getNews
 
 load_dotenv(path.join(path.dirname(__file__), '.env'))
 app = Flask(__name__)
