@@ -3,6 +3,7 @@ from flask import Flask, jsonify, make_response, request
 from os import getenv, path
 from modules.summarization import summarization
 from modules.news_link import getNews
+from validators import url
 
 load_dotenv(path.join(path.dirname(__file__), '.env'))
 app = Flask(__name__)
@@ -15,29 +16,16 @@ def getParameter(body, param):
 def InternalServerError():
     return jsonify({ 'message': 'something went wrong' }), 500
 
-
-@app.route('/link', methods = ['POST'])
-def link():
-    try:
-        body = request.get_json()
-        url = getParameter(body, 'url')
-
-        sentence = getNews(url)
-        summarizer = summarization()
-        summary = summarizer.fit(sentence)
-
-        return jsonify({'message': 'summary of a link', 'data': summary })
-    except ValueError as error:
-        return jsonify({ 'message': str(error) }), 422
-    except:
-        return InternalServerError()
-
 @app.route('/', methods = ['POST'])
 def fromText():
     try:
-
         body = request.get_json()
         text = getParameter(body, 'text')
+
+        # if is a link, override value
+        if (url(text)):
+            text = getNews(text)
+
         summarizer = summarization()
         summary = summarizer.fit(text)
 
