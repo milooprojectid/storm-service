@@ -1,39 +1,10 @@
 from dotenv import load_dotenv
-from flask import Flask, jsonify, make_response, request
 from os import getenv, path
-from modules.summarization import summarization
-from modules.news_link import getNews
-from validators import url
-
-load_dotenv(path.join(path.dirname(__file__), '.env'))
-app = Flask(__name__)
-
-def getParameter(body, param):
-    if param not in body or body[param] == '':
-        raise ValueError(param + ' is required')
-    return body[param]
-
-def InternalServerError():
-    return jsonify({ 'message': 'something went wrong' }), 500
-
-@app.route('/', methods = ['POST'])
-def fromText():
-    try:
-        body = request.get_json()
-        text = getParameter(body, 'text')
-
-        # if is a link, override value
-        if (url(text)):
-            text = getNews(text)
-
-        summarizer = summarization()
-        summary = summarizer.fit(text)
-
-        return jsonify({'message': 'a summary of text', 'data': { 'summary': summary } })
-    except ValueError as error:
-        return jsonify({ 'message': str(error) }), 422
-    except:
-        return InternalServerError()
+from modules.grpc_server import StormGrpcService
+from modules.rest_server import StormRestServer
 
 if __name__ == '__main__':
-    app.run(debug=getenv('APP_PORT') == "true", host='0.0.0.0', port=getenv('APP_PORT') or '5001')
+    load_dotenv(path.join(path.dirname(__file__), '.env'))
+
+    # StormRestServer.serve()
+    StormGrpcService.serve()

@@ -30,3 +30,5 @@ tldextract==2.2.2
 urllib3==1.25.8
 validators==0.14.2
 Werkzeug==1.0.0
+grpcio
+protobuf
