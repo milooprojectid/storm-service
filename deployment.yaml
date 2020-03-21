@@ -17,6 +17,7 @@ spec:
           image: asia.gcr.io/miloo-phoenix/storm
           ports:
             - containerPort: 5001
+            - containerPort: 50051
 
 ---
 
@@ -29,5 +30,7 @@ spec:
   selector:
     app: storm-service
   ports:
-    - port: 8020
+    - port: 8020  # REST
       targetPort: 5001
+    - port: 8025  # gRPC
+      targetPort: 50051
