@@ -17,7 +17,9 @@ spec:
           image: asia.gcr.io/miloo-phoenix/storm
           ports:
             - containerPort: 5001
+              name: "storm-rest-port"
             - containerPort: 50051
+              name: "storm-grpc-port"
 
 ---
 
