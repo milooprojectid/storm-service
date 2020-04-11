@@ -1,11 +1,11 @@
 import grpc
-import modules.storm_pb2_grpc as storm_grpc
-import modules.storm_pb2 as storm_pb
+import modules.protobuf.storm_pb2_grpc as storm_grpc
+import modules.protobuf.storm_pb2 as storm_pb
 
 from concurrent import futures
-from modules.summarization import summarization
+from modules.summarization.summarization import summarization
 from validators import url
-from modules.news_link import getNews
+from modules.summarization.news_link import getNews
 from os import getenv
 
 class StormGrpcService(storm_grpc.StormServiceServicer):

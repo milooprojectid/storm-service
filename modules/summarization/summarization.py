@@ -4,7 +4,7 @@ from nltk.tokenize import sent_tokenize
 import re
 import os
 
-stopwords = open('modules/stopwords.txt','r')
+stopwords = open('modules/summarization/stopwords.txt','r')
 
 class summarization(object):
     

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, make_response, request
 from os import getenv, path
-from modules.summarization import summarization
-from modules.news_link import getNews
+from modules.summarization.summarization import summarization
+from modules.summarization.news_link import getNews
 from validators import url
 
 app = Flask(__name__)
