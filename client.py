@@ -8,7 +8,7 @@ def run():
     with grpc.insecure_channel('127.0.0.1:50051') as channel:
         stub = storm_pb2_grpc.StormServiceStub(channel)
         response = stub.Summarize(storm_pb2.SummarizeRequest(text='https://kumparan.com/kumparanbisnis/sri-mulyani-tambah-anggaran-corona-rp-62-t-kpk-ancam-hukum-mati-jika-dikorupsi-1t49W501X86'))
-    print("Greeter client received: " + response.summary)
+        print("Greeter client received: " + response.summary)
 
 
 if __name__ == '__main__':
