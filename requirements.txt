@@ -32,3 +32,6 @@ validators==0.14.2
 Werkzeug==1.0.0
 grpcio
 protobuf
+pandas
+tqdm
+sklearn
