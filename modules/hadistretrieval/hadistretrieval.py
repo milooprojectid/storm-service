@@ -7,14 +7,15 @@ import tqdm
 import pandas as pd
 import numpy as np
 
-stopwords = [line.rstrip('\n\r') for line in open('modules/hadistretrieval/data/stopword_list_TALA.txt')]
-stemmer = StemmerFactory().create_stemmer()
-hadist = pd.read_csv('modules/hadistretrieval/data/hadist.csv', delimiter=';')
-vectorizer = TfidfVectorizer()
-X = vectorizer.fit_transform(hadist.Processed)
-features = vectorizer.get_feature_names()
-
 class HadistRetrieval:
+    def __init__(self):
+        self.stopwords = [line.rstrip('\n\r') for line in open('modules/hadistretrieval/data/stopword_list_TALA.txt')]
+        self.stemmer = StemmerFactory().create_stemmer()
+        self.hadist = pd.read_csv('modules/hadistretrieval/data/hadist.csv', delimiter=';')
+        vectorizer = TfidfVectorizer()
+        self.X = vectorizer.fit_transform(self.hadist.Processed)
+        self.features = vectorizer.get_feature_names()
+
     def _text_lower(self, text: str) -> str:
         return text.lower()
 
@@ -25,13 +26,13 @@ class HadistRetrieval:
         return re.sub(r'[^a-z]', ' ', re.sub("'", '', text))
 
     def _stemming(self, text: str) ->str:
-        return stemmer.stem(text)
+        return self.stemmer.stem(text)
 
     def _stopwords_removal(self, text: str) -> str:
         texts_token = text.split()
         not_stopword = []
         for token in texts_token:
-            if token not in stopwords:
+            if token not in self.stopwords:
                 not_stopword.append(token)
         return ' '.join(not_stopword)
 
@@ -45,13 +46,13 @@ class HadistRetrieval:
     def retrieve(self, sentence: str, n: int = 5) -> List[Mapping[str, str]]:
         sent_prep = self._preprocessing(sentence)
         query = sent_prep.split()
-        res = np.zeros(X.shape[0])
+        res = np.zeros(self.X.shape[0])
         not_in_corpus = []
         output: List[Mapping[str, str]] = []
 
         for keyword in query:
             try:
-                res += X.toarray()[:,features.index(keyword)]
+                res += self.X.toarray()[:,self.features.index(keyword)]
             except:
                 not_in_corpus.append(keyword)
                 res = np.zeros(self.X.shape[0])
@@ -64,8 +65,8 @@ class HadistRetrieval:
         for i in range(len(top_idx)):
             # res[top_idx[i]]
             output.append({
-                'source': hadist.iloc[top_idx[i]][4],
-                'text': hadist.iloc[top_idx[i]][2]
+                'source': self.hadist.iloc[top_idx[i]][4],
+                'text': self.hadist.iloc[top_idx[i]][2]
             })
 
         return output
