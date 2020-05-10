@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=b'\n\x0bstorm.proto\" \n\x10SummarizeRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"$\n\x11SummarizeResponse\x12\x0f\n\x07summary\x18\x01 \x01(\t2B\n\x0cStormService\x12\x32\n\tSummarize\x12\x11.SummarizeRequest\x1a\x12.SummarizeResponseb\x06proto3'
+  serialized_pb=b'\n\x0bstorm.proto\" \n\x10SummarizeRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"$\n\x11SummarizeResponse\x12\x0f\n\x07summary\x18\x01 \x01(\t\"(\n\rHadistRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\t\n\x01n\x18\x02 \x01(\x05\"&\n\x06hadist\x12\x0e\n\x06source\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\")\n\rHadistReponse\x12\x18\n\x07hadists\x18\x01 \x03(\x0b\x32\x07.hadist2u\n\x0cStormService\x12\x32\n\tSummarize\x12\x11.SummarizeRequest\x1a\x12.SummarizeResponse\x12\x31\n\x0fHadistRetrieval\x12\x0e.HadistRequest\x1a\x0e.HadistReponseb\x06proto3'
 )
 
 
@@ -85,8 +85,119 @@ _SUMMARIZERESPONSE = _descriptor.Descriptor(
   serialized_end=85,
 )
 
+
+_HADISTREQUEST = _descriptor.Descriptor(
+  name='HadistRequest',
+  full_name='HadistRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='text', full_name='HadistRequest.text', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='n', full_name='HadistRequest.n', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=87,
+  serialized_end=127,
+)
+
+
+_HADIST = _descriptor.Descriptor(
+  name='hadist',
+  full_name='hadist',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='source', full_name='hadist.source', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='text', full_name='hadist.text', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=129,
+  serialized_end=167,
+)
+
+
+_HADISTREPONSE = _descriptor.Descriptor(
+  name='HadistReponse',
+  full_name='HadistReponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='hadists', full_name='HadistReponse.hadists', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=169,
+  serialized_end=210,
+)
+
+_HADISTREPONSE.fields_by_name['hadists'].message_type = _HADIST
 DESCRIPTOR.message_types_by_name['SummarizeRequest'] = _SUMMARIZEREQUEST
 DESCRIPTOR.message_types_by_name['SummarizeResponse'] = _SUMMARIZERESPONSE
+DESCRIPTOR.message_types_by_name['HadistRequest'] = _HADISTREQUEST
+DESCRIPTOR.message_types_by_name['hadist'] = _HADIST
+DESCRIPTOR.message_types_by_name['HadistReponse'] = _HADISTREPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 SummarizeRequest = _reflection.GeneratedProtocolMessageType('SummarizeRequest', (_message.Message,), {
@@ -103,6 +214,27 @@ SummarizeResponse = _reflection.GeneratedProtocolMessageType('SummarizeResponse'
   })
 _sym_db.RegisterMessage(SummarizeResponse)
 
+HadistRequest = _reflection.GeneratedProtocolMessageType('HadistRequest', (_message.Message,), {
+  'DESCRIPTOR' : _HADISTREQUEST,
+  '__module__' : 'storm_pb2'
+  # @@protoc_insertion_point(class_scope:HadistRequest)
+  })
+_sym_db.RegisterMessage(HadistRequest)
+
+hadist = _reflection.GeneratedProtocolMessageType('hadist', (_message.Message,), {
+  'DESCRIPTOR' : _HADIST,
+  '__module__' : 'storm_pb2'
+  # @@protoc_insertion_point(class_scope:hadist)
+  })
+_sym_db.RegisterMessage(hadist)
+
+HadistReponse = _reflection.GeneratedProtocolMessageType('HadistReponse', (_message.Message,), {
+  'DESCRIPTOR' : _HADISTREPONSE,
+  '__module__' : 'storm_pb2'
+  # @@protoc_insertion_point(class_scope:HadistReponse)
+  })
+_sym_db.RegisterMessage(HadistReponse)
+
 
 
 _STORMSERVICE = _descriptor.ServiceDescriptor(
@@ -111,8 +243,8 @@ _STORMSERVICE = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=87,
-  serialized_end=153,
+  serialized_start=212,
+  serialized_end=329,
   methods=[
   _descriptor.MethodDescriptor(
     name='Summarize',
@@ -121,6 +253,15 @@ _STORMSERVICE = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_SUMMARIZEREQUEST,
     output_type=_SUMMARIZERESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='HadistRetrieval',
+    full_name='StormService.HadistRetrieval',
+    index=1,
+    containing_service=None,
+    input_type=_HADISTREQUEST,
+    output_type=_HADISTREPONSE,
     serialized_options=None,
   ),
 ])
