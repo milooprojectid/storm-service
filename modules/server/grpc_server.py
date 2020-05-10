@@ -4,6 +4,7 @@ import modules.protobuf.storm_pb2 as storm_pb
 
 from concurrent import futures
 from modules.summarization.summarization import summarization
+from modules.hadistretrieval.hadistretrieval import HadistRetrieval
 from validators import url
 from modules.summarization.news_link import getNews
 from os import getenv
@@ -19,6 +20,14 @@ class StormGrpcService(storm_grpc.StormServiceServicer):
         summarizer = summarization()
         summary = summarizer.fit(text)
         return storm_pb.SummarizeResponse(summary=summary)
+
+    def HadistRetrieval(self, request, context):
+        text = request.text
+
+        hadist = HadistRetrieval()
+        result = hadist.retrieve(text, 5)
+
+        return storm_pb.HadistReponse(hadists=result)
     
     @staticmethod
     def serve():
