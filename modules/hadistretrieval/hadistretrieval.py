@@ -7,14 +7,12 @@ import tqdm
 import pandas as pd
 import numpy as np
 
-stopwords = [line.rstrip('\n\r') for line in open('./modules/hadistretrieval/data/stopword_list_TALA.txt')]
+stopwords = [line.rstrip('\n\r') for line in open('modules/hadistretrieval/data/stopword_list_TALA.txt')]
 stemmer = StemmerFactory().create_stemmer()
-hadist = pd.read_csv('./modules/hadistretrieval/data/hadist.csv', delimiter=';')
+hadist = pd.read_csv('modules/hadistretrieval/data/hadist.csv', delimiter=';')
 vectorizer = TfidfVectorizer()
 X = vectorizer.fit_transform(hadist.Processed)
 features = vectorizer.get_feature_names()
-
-print('loaded')
 
 class HadistRetrieval:
     def _text_lower(self, text: str) -> str:
