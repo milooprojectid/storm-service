@@ -2,6 +2,7 @@ from flask import Flask, jsonify, make_response, request
 from os import getenv, path
 from modules.summarization.summarization import summarization
 from modules.summarization.news_link import getNews
+from modules.hadistretrieval.hadistretrieval import HadistRetrieval
 from validators import url
 
 app = Flask(__name__)
@@ -14,8 +15,8 @@ def getParameter(body, param):
 def InternalServerError():
     return jsonify({ 'message': 'something went wrong' }), 500
 
-@app.route('/', methods = ['POST'])
-def fromText():
+@app.route('/summarize', methods = ['POST'])
+def summarize():
     try:
         body = request.get_json()
         text = getParameter(body, 'text')
@@ -28,6 +29,21 @@ def fromText():
         summary = summarizer.fit(text)
 
         return jsonify({'message': 'a summary of text', 'data': { 'summary': summary } })
+    except ValueError as error:
+        return jsonify({ 'message': str(error) }), 422
+    except:
+        return InternalServerError()
+
+@app.route('/hadist', methods = ['POST'])
+def hadist():
+    try:
+        body = request.get_json()
+        text = getParameter(body, 'text')
+
+        hadist = HadistRetrieval()
+        result = hadist.retrieve(text)
+
+        return jsonify({'message': 'hadist retrieved', 'data': result })
     except ValueError as error:
         return jsonify({ 'message': str(error) }), 422
     except:
