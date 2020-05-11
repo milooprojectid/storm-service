@@ -7,11 +7,14 @@ import tqdm
 import pandas as pd
 import numpy as np
 
+stopwords = [line.rstrip('\n\r') for line in open('modules/hadistretrieval/stopwords.txt', 'r')]
+hadist = pd.read_csv('modules/hadistretrieval/hadist.csv', delimiter=';')
+
 class HadistRetrieval:
     def __init__(self):
-        self.stopwords = [line.rstrip('\n\r') for line in open('modules/hadistretrieval/data/stopword_list_TALA.txt')]
+        self.stopwords = stopwords
         self.stemmer = StemmerFactory().create_stemmer()
-        self.hadist = pd.read_csv('modules/hadistretrieval/data/hadist.csv', delimiter=';')
+        self.hadist = hadist
         vectorizer = TfidfVectorizer()
         self.X = vectorizer.fit_transform(self.hadist.Processed)
         self.features = vectorizer.get_feature_names()
