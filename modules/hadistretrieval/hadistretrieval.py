@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 
 stopwords = [line.rstrip('\n\r') for line in open('modules/hadistretrieval/stopwords.txt', 'r')]
-hadist = pd.read_csv('modules/hadistretrieval/hadist.csv', delimiter=';')
+hadist = pd.read_csv('modules/hadistretrieval/abudaud.csv', delimiter=';')
 
 class HadistRetrieval:
     def __init__(self):
